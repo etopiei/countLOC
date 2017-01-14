@@ -24,10 +24,15 @@ def iterateThroughFiles(dir,classAccess):
                     iterateThroughFiles(dir+'/'+filename,classAccess)
                 print("Skipping: {}".format(filename))
             else:
-                 print("Counting: {}".format(filename))
-                 fullName = dir + '/' + filename
-                 x = file_len(fullName)
-                 classAccess.total = classAccess.total + x
+                'check that it is not a directory then count lines and add them to total.'
+                if (os.path.isdir(dir + '/' + filename)):
+                    'recursively search this directory'
+                    iterateThroughFiles(dir+'/'+filename,classAccess)
+                else:
+                    print("Counting: {}".format(filename))
+                    fullName = dir + '/' + filename
+                    x = file_len(fullName)
+                    classAccess.total = classAccess.total + x
     
     else:
 
@@ -52,3 +57,4 @@ if (loc == "Error"):
 else:
     print('The total lines of code in your project is...')
     print(classAccess.total)
+    
